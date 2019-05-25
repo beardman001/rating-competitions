@@ -5,9 +5,10 @@ function ratingCompetition(el, items, options){
 }
 
 class RatingCompetition {
+    
     constructor (el, items, options)
     {
-        this.element = el;
+        this.element = document.querySelector(el);
         this.items = items;
         this.options = options;
         this.Render();
@@ -15,13 +16,18 @@ class RatingCompetition {
 
     Render()
     {
-        console.log(this.element);
+        
     }
 
+    /**
+     * @param  {} id
+     * @param  {} value
+     */
     Move(id, value)
     {
 
     }
+
 
     GetLeader()
     {
@@ -30,6 +36,6 @@ class RatingCompetition {
 
     GetLeaders()
     {
-        
+
     }
 }
