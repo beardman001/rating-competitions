@@ -22,7 +22,7 @@ gulp.task('compile-less', function () {
 
 
 gulp.task('watch-less', function() {
-    gulp.watch('less/**/*.less' , ['compile-less']);
+    gulp.watch('less/**/*.less' , gulp.series('compile-less'));
 });
 
-gulp.task('default', ['compile-less', 'watch-less']);
+gulp.task('build-css', gulp.parallel(['compile-less','watch-less']));
