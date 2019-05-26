@@ -2,12 +2,53 @@
 <html>
     <head>
         <title>Rating Competitions demo page</title>
+        <link rel="stylesheet" href="dist/css/rating-competitions.min.css">
     </head>
     <body>
         <h1>Rating Competitions demo page</h1>
+
+        <div class="rating" style="width: 50%; margin: 0 auto">
+            <div class="rating-item">
+                <hr class="track">
+                <div class="car">
+                    <img src="img/car.png" alt="" class="racing-car">
+                    <div class="tooltop">
+
+                    </div>
+                </div>
+                
+                <img src="img/finish.png" alt="" class="finish">  
+                <div class="leader"></div>
+            </div>
+        </div>
         <script src="js/rating-competitions.js"></script>
         <script>
-            ratingCompetition('Денис');
+            
+            let container = document.querySelector('.rating');
+            let items = [
+                {
+                    id: 1,
+                    name: "Max Vostrugin",
+                    value: 80,
+                    carPath: "img/car.png",
+                    roadColor: "#333",
+                },
+                {
+                    id: 2,
+                    name: "Den Nekrasov",
+                    value: 55,
+                    carPath: "img/car2.png",
+                    roadColor: "#3cd407",
+                },
+                {
+                    id: 3,
+                    name: "Anton Nekrasov",
+                    value: 75,
+                    carPath: "img/car3.png",
+                    roadColor: "#f1cd2a",
+                },
+            ];
+            let rating = new RatingCompetition(container, items, {});
         </script>
     </body>
 </html>
