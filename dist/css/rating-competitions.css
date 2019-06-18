@@ -2,6 +2,12 @@ html,
 body {
   font-family: 'Courier New', Courier, monospace;
 }
+html h1,
+body h1 {
+  text-align: center;
+  margin-bottom: 60px;
+  margin-top: 30px;
+}
 html .controls,
 body .controls {
   text-align: center;
@@ -32,6 +38,13 @@ body .controls {
 }
 .rating-item .car.linear {
   transition: 0.6s linear;
+}
+.rating-item .car p.name {
+  position: absolute;
+  left: 0px;
+  font-size: 14px;
+  top: 8px;
+  width: 150px;
 }
 .rating-item img.finish {
   position: absolute;

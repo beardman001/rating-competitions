@@ -83,7 +83,10 @@ class RatingCompetition {
             if(leaders != null){
                 leaders.classList.remove('active');
             }
-            document.querySelector(`.rating-item #car-${leader.id}`).closest('.rating-item').lastChild.classList.add('active');
+            if(leader.value > 0){
+                document.querySelector(`.rating-item #car-${leader.id}`).closest('.rating-item').lastChild.classList.add('active');
+            }
+            
         }
     }
 }
