@@ -7,7 +7,7 @@
     <body>
         <h1>Rating Competitions demo page</h1>
 
-        <div class="rating" style="width: 50%; margin: 0 auto">
+        <div class="rating" style="width: 90%; margin: 0 auto">
             <div class="rating-item">
                 <hr class="track">
                 <div class="car">
@@ -21,6 +21,14 @@
                 <div class="leader"></div>
             </div>
         </div>
+
+        <div class="controls">
+            <button id="moveMax">Max</button>
+            <button id="moveDen">Den</button>
+            <button id="moveAnton">Anton</button>
+            <button id="getLeader">Get leader</button>
+            <button id="sort">sort</button>
+        </div>
         <script src="js/rating-competitions.js"></script>
         <script>
             
@@ -29,26 +37,51 @@
                 {
                     id: 1,
                     name: "Max Vostrugin",
-                    value: 80,
+                    value: 0,
                     carPath: "img/car.png",
                     roadColor: "#333",
                 },
                 {
                     id: 2,
                     name: "Den Nekrasov",
-                    value: 55,
+                    value: 0,
                     carPath: "img/car2.png",
                     roadColor: "#3cd407",
                 },
                 {
                     id: 3,
                     name: "Anton Nekrasov",
-                    value: 75,
+                    value: 0,
                     carPath: "img/car3.png",
                     roadColor: "#f1cd2a",
                 },
             ];
-            let rating = new RatingCompetition(container, items, {});
+            let rating = new RatingCompetition(container, items, {
+                maxValue : 2000,
+                animationType : 'linear',
+            });
+            document.querySelector('#moveMax').addEventListener('click', function(){
+                rating.Move(1, 500);
+            });
+
+            document.querySelector('#moveDen').addEventListener('click', function(){
+                rating.Move(2, 300);
+            });
+
+            document.querySelector('#moveAnton').addEventListener('click', function(){
+                rating.Move(3, 800);
+            });
+
+            document.querySelector('#getLeader').addEventListener('click', function(){
+                console.log(rating.GetLeader());
+            });
+
+            document.querySelector('#sort').addEventListener('click', function(){
+                console.log(rating.GetLeaders());
+            });
+
+            
+
         </script>
     </body>
 </html>

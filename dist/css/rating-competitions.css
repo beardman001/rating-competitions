@@ -1,3 +1,11 @@
+html,
+body {
+  font-family: 'Courier New', Courier, monospace;
+}
+html .controls,
+body .controls {
+  text-align: center;
+}
 .rating-item {
   width: 100%;
   position: relative;
@@ -12,11 +20,18 @@
 .rating-item .car {
   position: absolute;
   top: 0;
+  left: 0;
 }
 .rating-item .car img.racing-car {
   position: absolute;
   top: -12px;
   left: 0;
+}
+.rating-item .car.ease {
+  transition: 0.6s ease;
+}
+.rating-item .car.linear {
+  transition: 0.6s linear;
 }
 .rating-item img.finish {
   position: absolute;
@@ -32,4 +47,9 @@
   position: absolute;
   right: -36px;
   top: -16px;
+  opacity: 0;
+  transition: 600ms ease;
+}
+.rating-item div.leader.active {
+  opacity: 1;
 }

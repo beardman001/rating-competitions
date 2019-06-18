@@ -15,10 +15,14 @@ class RatingCompetition {
         if(options.maxValue){
             this.maxValue = options.maxValue;
         }
+        if(options.animationType && (options.animationType === 'ease' || options.animationType === 'linear')){
+            this.animationType = options.animationType;
+        }
         
         this.Render();
     }
 
+    animationType = 'ease'; 
     maxValue = 100;
 
     Render()
@@ -28,7 +32,7 @@ class RatingCompetition {
             template += 
             `<div class="rating-item">`+
                 `<hr class="track" style="background-color:${this.items[i].roadColor};">`+
-                `<div class="car" style="left: ${this.items[i].value}%">`+
+                `<div class="car ${this.animationType}" id="car-${this.items[i].id}">`+
                     `<p class="name">${this.items[i].name}</p>`+
                     `<img src="${this.items[i].carPath}" alt="" class="racing-car">`+
                     `<div class="tooltop">`+
@@ -42,22 +46,39 @@ class RatingCompetition {
     }
 
     /**
-     * @param  {} id
-     * @param  {} value
+     * @param  number id
+     * @param  number value
      */
     Move(id, value)
     {
-
+        let item = this.items.find(item => item.id == id);
+        item.value = value;
+        document.querySelector(`#car-${id}`).style.left = `${this._ValueToPrecents(item.value)}%`;
+        let leader = this.GetLeader();
+        if(leader.id == item.id){
+            let leaders = document.querySelector('.leader.active');
+            if(leaders != null){
+                leaders.classList.remove('active');
+            }
+            document.querySelector(`.rating-item #car-${leader.id}`).closest('.rating-item').lastChild.classList.add('active');
+        }
     }
 
 
     GetLeader()
     {
-
+        return this.items.sort((a,b) => b.value-a.value)[0];
     }
 
     GetLeaders()
     {
+        return this.items.sort((a,b) => b.value-a.value);
+    }
 
+    _ValueToPrecents(value){
+        if(value >= this.maxValue){
+            value = this.maxValue;
+        }
+        return (value * 100) / this.maxValue;
     }
 }
