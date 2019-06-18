@@ -54,14 +54,7 @@ class RatingCompetition {
         let item = this.items.find(item => item.id == id);
         item.value = value;
         document.querySelector(`#car-${id}`).style.left = `${this._ValueToPrecents(item.value)}%`;
-        let leader = this.GetLeader();
-        if(leader.id == item.id){
-            let leaders = document.querySelector('.leader.active');
-            if(leaders != null){
-                leaders.classList.remove('active');
-            }
-            document.querySelector(`.rating-item #car-${leader.id}`).closest('.rating-item').lastChild.classList.add('active');
-        }
+        this._RenderLeader(item.id);
     }
 
 
@@ -75,10 +68,22 @@ class RatingCompetition {
         return this.items.sort((a,b) => b.value-a.value);
     }
 
+    
     _ValueToPrecents(value){
         if(value >= this.maxValue){
             value = this.maxValue;
         }
         return (value * 100) / this.maxValue;
+    }
+
+    _RenderLeader(id){
+        let leader = this.GetLeader();
+        if(leader.id == id){
+            let leaders = document.querySelector('.leader.active');
+            if(leaders != null){
+                leaders.classList.remove('active');
+            }
+            document.querySelector(`.rating-item #car-${leader.id}`).closest('.rating-item').lastChild.classList.add('active');
+        }
     }
 }
