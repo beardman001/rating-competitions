@@ -16,7 +16,7 @@
             <button id="moveDen">Den 300</button>
             <button id="moveAnton">Anton 800</button>
             <button id="getLeader">Get leader (console)</button>
-            <button id="sort">Sort (console)</button>
+            <button id="sort">Sort by value(console)</button>
             <button id="reset">Reset</button>
         </div>
         <script src="js/rating-competitions.js"></script>
@@ -48,8 +48,12 @@
             ];
             let rating = new RatingCompetition(container, items, {
                 maxValue : 2000,
-                animationType : 'linear',
+                animationType : 'ease',
             });
+            rating.Set(1, 100);
+            rating.Set(2, 50);
+            rating.Set(3, 200);
+
             document.querySelector('#moveMax').addEventListener('click', function(){
                 rating.Move(1, 500);
             });
@@ -75,9 +79,6 @@
                 rating.Move(2, 0);
                 rating.Move(3, 0);
             });
-
-            
-
         </script>
     </body>
 </html>
