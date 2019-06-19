@@ -10,20 +10,18 @@ class RatingCompetition {
     {
         this.element = el;
         this.items = items;
-        this.options = options;
+        
+        let defaultOptions = {
+            animationType: 'ease', 
+            maxValue: 100,
+        }
 
-        if(options.maxValue){
-            this.maxValue = options.maxValue;
-        }
-        if(options.animationType && (options.animationType === 'ease' || options.animationType === 'linear')){
-            this.animationType = options.animationType;
-        }
+        this.options = Object.assign({}, defaultOptions, options);
         
         this.Render();
     }
 
-    animationType = 'ease'; 
-    maxValue = 100;
+    
 
     Render()
     {
@@ -32,7 +30,7 @@ class RatingCompetition {
             template += 
             `<div class="rating-item">`+
                 `<hr class="track" style="background-color:${this.items[i].roadColor};">`+
-                `<div class="car ${this.animationType}" id="car-${this.items[i].id}">`+
+                `<div class="car ${this.options.animationType}" id="car-${this.items[i].id}" style="left:${this._ValueToPercent(this.items[i].value)}%">`+
                     `<p class="name">${this.items[i].name}</p>`+
                     `<img src="${this.items[i].carPath}" alt="" class="racing-car">`+
                     `<div class="tooltop">`+
@@ -53,14 +51,14 @@ class RatingCompetition {
     {
         let item = this.items.find(item => item.id == id);
         item.value = value;
-        document.querySelector(`#car-${id}`).style.left = `${this._ValueToPrecents(item.value)}%`;
-        this._RenderLeader(item.id);
+        document.querySelector(`#car-${id}`).style.left = `${this._ValueToPercent(item.value)}%`;
+        this._RenderLeader();
     }
 
 
     GetLeader()
     {
-        return this.items.sort((a,b) => b.value-a.value)[0];
+        return this.GetLeaders()[0];
     }
 
     GetLeaders()
@@ -68,25 +66,31 @@ class RatingCompetition {
         return this.items.sort((a,b) => b.value-a.value);
     }
 
-    
-    _ValueToPrecents(value){
-        if(value >= this.maxValue){
-            value = this.maxValue;
-        }
-        return (value * 100) / this.maxValue;
+    Set(id, value)
+    {
+        let item = this.items.find(item => item.id == id);
+        item.value = value;
+        this.Render();
     }
 
-    _RenderLeader(id){
-        let leader = this.GetLeader();
-        if(leader.id == id){
-            let leaders = document.querySelector('.leader.active');
-            if(leaders != null){
-                leaders.classList.remove('active');
-            }
-            if(leader.value > 0){
-                document.querySelector(`.rating-item #car-${leader.id}`).closest('.rating-item').lastChild.classList.add('active');
-            }
-            
+    
+    _ValueToPercent(value){
+        if(value >= this.options.maxValue){
+            value = this.options.maxValue;
         }
+        return (value * 100) / this.options.maxValue;
+    }
+
+    _RenderLeader(){
+        let leader = this.GetLeader();
+        let leaders = this.element.querySelector('.leader.active');
+        if(leaders != null){
+            leaders.classList.remove('active');
+        }
+        if(leader.value > 0){
+            this.element.querySelector(`#car-${leader.id}`).closest('.rating-item').lastChild.classList.add('active');
+        }
+            
+        
     }
 }
