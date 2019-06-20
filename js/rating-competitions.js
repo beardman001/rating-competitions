@@ -33,8 +33,6 @@ class RatingCompetition {
                 `<div class="car ${this.options.animationType}" id="car-${this.items[i].id}" style="left:${this._ValueToPercent(this.items[i].value)}%">`+
                     `<p class="name">${this.items[i].name}</p>`+
                     `<img src="${this.items[i].carPath}" alt="" class="racing-car">`+
-                    `<div class="tooltop">`+
-                    `</div>`+
                 `</div>`+
                 `<img src="img/finish.png" alt="" class="finish">`+
                 `<div class="leader"></div>`+
@@ -88,9 +86,7 @@ class RatingCompetition {
             leaders.classList.remove('active');
         }
         if(leader.value > 0){
-            this.element.querySelector(`#car-${leader.id}`).closest('.rating-item').lastChild.classList.add('active');
+            this.element.querySelector(`#car-${leader.id}`).closest('.rating-item').querySelector('.leader').classList.add('active');
         }
-            
-        
     }
 }
